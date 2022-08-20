@@ -1,0 +1,33 @@
+/.clangd
+/.log
+/compile_commands.json
+
+/.cache
+# /.cache/*
+# !/.cache/compdb
+
+*.bkp
+*.~undo-tree~
+\#*\#
+
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+*.pyc
+node_modules
+
+/.rh-trusted
+
+/bazel-*
+
+/packages/*/dist
+/packages/*/cjs
+/packages/*/esm
+/packages/*/buildcache
+/packages/*/build

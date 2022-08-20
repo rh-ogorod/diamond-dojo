@@ -1,0 +1,81 @@
+# Hey Emacs, this is -*- coding: utf-8; mode: bazel -*-
+
+workspace(name = "gcc-bazel-init")
+
+# load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+# git_repository(
+#   name = "com_github_nelhage_rules_boost",
+#   commit = "1e3a69bf2d5cd10c34b74f066054cd335d033d71",
+#   remote = "https://github.com/nelhage/rules_boost",
+#   shallow_since = "1591047380 -0700",
+# )
+
+# load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
+# boost_deps()
+
+# local_repository(
+#   name = "rules_foreign_cc",
+#   path = "external/bazelbuild-rules_foreign_cc",
+# )
+
+# load(
+#   "@rules_foreign_cc//foreign_cc:repositories.bzl",
+#   "rules_foreign_cc_dependencies",
+# )
+
+# This sets up some common toolchains for building targets.
+# For more details, please see
+# https://github.com/bazelbuild/rules_foreign_cc/tree/main/docs#rules_foreign_cc_dependencies
+# rules_foreign_cc_dependencies()
+
+# Don't use preinstalled tools to ensure builds are as hermetic as possible
+# rules_foreign_cc_dependencies(register_preinstalled_tools = False)
+
+# local_repository(
+#   name = "com_github_nelhage_rules_boost",
+#   path = "external/bazelbuild/rules_boost",
+# )
+
+# load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
+
+# boost_deps()
+
+local_repository(
+  name = "hello-another-world",
+  path = "packages/hello-another-world",
+)
+
+# local_repository(
+#   # name = "com_github_google_flatbuffers",
+#   name = "flatbuffers",
+#   path = "external/flatbuffers/package",
+#   # repo_mapping = {"@com_github_google_flatbuffers" : "@flatbuffers"}
+# )
+
+local_repository(
+  name = "rules_compdb",
+  path = "external/bazelbuild-rules-compdb",
+)
+
+# local_repository(
+#   name = "boost",
+#   path = "external/boost",
+# )
+
+# local_repository(
+#   name = "uWebSockets",
+#   path = "external/uWebSockets",
+# )
+
+new_local_repository(
+  name = "system",
+  path = "/usr/lib/x86_64-linux-gnu",
+  build_file = "system.BUILD.bazel",
+)
+
+# new_local_repository(
+#   name = "local",
+#   path = "/usr/local/lib",
+#   build_file = "local.BUILD.bazel",
+# )
