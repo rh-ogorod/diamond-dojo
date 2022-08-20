@@ -3,6 +3,8 @@
 set -eu
 set -o pipefail
 
+ulimit -c unlimited
+
 SDPATH="$(dirname "${BASH_SOURCE[0]}")"
 if [ ! -d "${SDPATH}" ]; then SDPATH="${PWD}"; fi
 readonly SDPATH="$(cd -P "${SDPATH}" && pwd)"
@@ -14,8 +16,9 @@ cd "${INDEX_PATH}"; echo cd "${PWD}"
 
 echo
 CMD=(bazel)
-CMD+=("${BAZEL_BUILD_CMD[@]}")
+CMD+=("${BAZEL_RUN_CMD[@]}")
 CMD+=("${BAZEL_DEBUG_CMD[@]}")
 CMD+=("${BAZEL_TERM_CMD[@]}")
-CMD+=(@hello-another-world//:hello-another-world)
-echo + "${CMD[@]}" && "${CMD[@]}"
+CMD+=(//packages/diamond)
+CMD+=('2>&1')
+echo + "${CMD[@]}" && eval "${CMD[@]}"

@@ -5,8 +5,7 @@ load("@rules_compdb//:defs.bzl", "compilation_database")
 compilation_database(
   name = "compdb",
   targets = [
-    "//packages/hello-world",
-    "@hello-another-world//:hello-another-world",
+    "//packages/diamond",
   ],
   module_exts = ["cpp"],
 )
