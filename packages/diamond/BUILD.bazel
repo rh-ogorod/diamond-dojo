@@ -7,6 +7,9 @@ cc_binary(
   srcs = [
     "src/main.cpp",
   ],
+  deps = [
+    "@range-v3//:range-v3",
+  ],
   # linkopts = ['-Wl,-rpath,"$$ORIGIN/../lib"'],
   visibility = ["//visibility:public"],
 )

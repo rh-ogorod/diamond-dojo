@@ -5,6 +5,12 @@
 /** @type {UnboxConfig} */
 const config = {
   ignorePaths: [RegExp('external/bazel_tools$'), RegExp('external/system$')],
+  pathReplacements: [
+    {
+      predicate: RegExp('^bazel-out/.+?/bin/external/range-v3(/?.*)'),
+      replacement: 'external/range-v3$1',
+    },
+  ],
 };
 
 module.exports = config;

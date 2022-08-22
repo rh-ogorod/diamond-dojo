@@ -7,6 +7,11 @@ local_repository(
   path = "external/bazelbuild-rules-compdb",
 )
 
+local_repository(
+  name = "range-v3",
+  path = "external/range-v3",
+)
+
 new_local_repository(
   name = "system",
   path = "/usr/lib/x86_64-linux-gnu",
