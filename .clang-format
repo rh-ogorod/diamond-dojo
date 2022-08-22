@@ -8,8 +8,8 @@ ColumnLimit: 80
 # SpaceBeforeParens: Never
 # SpaceBeforeParens: ControlStatementsExceptControlMacros
 IndentWidth: 2
-ContinuationIndentWidth: 2
-ConstructorInitializerIndentWidth: 4
+# ContinuationIndentWidth: 2
+# ConstructorInitializerIndentWidth: 4
 SpacesBeforeTrailingComments: 1
 # SpacesInContainerLiterals: false
 BinPackParameters: false

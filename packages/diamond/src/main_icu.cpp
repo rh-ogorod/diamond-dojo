@@ -23,13 +23,13 @@ inline auto toUpper(char32_t value) -> char32_t {
 
 auto toUpper(const std::u32string& value) -> std::u32string {
   return value | ranges::views::transform([](auto letter) {
-           return u_toupper(letter);
+           return toUpper(letter);
          }) |
          ranges::to<std::u32string>();
 };
 
 inline auto operator<<(std::ostream& stream, const std::u32string_view& value)
-  -> std::ostream& {
+    -> std::ostream& {
   using FromUTF32Arg2 = int32_t;
   const auto valueSize = value.size();
 
@@ -37,15 +37,15 @@ inline auto operator<<(std::ostream& stream, const std::u32string_view& value)
   assert(valueSize <= std::numeric_limits<FromUTF32Arg2>::max());
 
   stream << UnicodeString::fromUTF32(
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    reinterpret_cast<const UChar32*>(value.data()),
-    static_cast<FromUTF32Arg2>(valueSize));
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+      reinterpret_cast<const UChar32*>(value.data()),
+      static_cast<FromUTF32Arg2>(valueSize));
 
   return stream;
 }
 
 inline auto operator<<(std::ostream& stream, const char32_t value)
-  -> std::ostream& {
+    -> std::ostream& {
   stream << UnicodeString{static_cast<UChar32>(value)};
   return stream;
 }
