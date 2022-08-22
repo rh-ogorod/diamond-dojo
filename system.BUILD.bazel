@@ -17,6 +17,8 @@ cc_library(
   srcs = [
     "librt.so",
     "libpthread.so",
+    "libicuuc.so",
+    # "libicuuc.a",
     # "libdl.so",
     # "libcrypt.so"
   ],

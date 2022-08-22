@@ -1,9 +1,12 @@
 ---
 BasedOnStyle: Google
-Standard: Cpp11
+Language: Cpp
+Standard: Latest
+ColumnLimit: 80
 # SpaceBeforeCpp11BracedList: true
 # Cpp11BracedListStyle: true
-SpaceBeforeParens: Never
+# SpaceBeforeParens: Never
+# SpaceBeforeParens: ControlStatementsExceptControlMacros
 IndentWidth: 2
 ContinuationIndentWidth: 2
 ConstructorInitializerIndentWidth: 4
@@ -22,9 +25,14 @@ AllowShortFunctionsOnASingleLine: Empty
 AlignAfterOpenBracket: AlwaysBreak
 BreakConstructorInitializers: BeforeColon
 # next ver AllowAllConstructorInitializersOnNextLine: false
+AlwaysBreakBeforeMultilineStrings: true
 AllowShortLambdasOnASingleLine: Empty
+SeparateDefinitionBlocks: Always
+AlignTrailingComments: false
+# AlignOperands: DontAlign
 
-PenaltyBreakAssignment: 90
+# PenaltyBreakAssignment: 90
+# PenaltyBreakFirstLessLess: 0
 PenaltyBreakBeforeFirstCallParameter: 0
 
 BreakBeforeBraces: Custom
