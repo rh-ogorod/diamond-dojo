@@ -1,3 +1,3 @@
 # Checks: 'modernize*,-modernize-use-trailing-return-type'
-Checks: '*,-llvmlibc-*,-fuchsia-*'
+Checks: '*,-llvmlibc-*,-fuchsia-*,-hicpp-no-array-decay'
 FormatStyle: 'file'
