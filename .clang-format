@@ -22,6 +22,7 @@ AllowShortFunctionsOnASingleLine: Empty
 AlignAfterOpenBracket: AlwaysBreak
 BreakConstructorInitializers: BeforeColon
 # next ver AllowAllConstructorInitializersOnNextLine: false
+AllowShortLambdasOnASingleLine: Empty
 
 PenaltyBreakAssignment: 90
 PenaltyBreakBeforeFirstCallParameter: 0
