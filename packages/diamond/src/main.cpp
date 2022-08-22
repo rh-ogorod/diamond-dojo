@@ -21,8 +21,8 @@ auto main(int /*argc*/, char* /*argv*/[]) -> int {
   const std::u32string firstIn{U"а"};
   const std::u32string lastIn{U"д"};
 
-  const auto first = firstIn | ranges::views::transform([](auto letter) {
-                       return std::toupper(letter, std::locale(""));
+  const auto first = lastIn | ranges::views::transform([](auto letter) {
+                       return std::toupper(letter);
                      }) |
                      ranges::to<std::u32string>();
 
