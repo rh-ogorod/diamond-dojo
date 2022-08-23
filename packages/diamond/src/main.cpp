@@ -2,80 +2,83 @@
 
 // https://github.com/ericniebler/range-v3/blob/master/test/action/transform.cpp
 
-#include <cpp-utils/scope_exit.hpp>
-#include <range/v3/range/access.hpp>
-#include <range/v3/range/conversion.hpp>
-#include <range/v3/view/concat.hpp>
-#include <range/v3/view/generate.hpp>
-#include <range/v3/view/join.hpp>
-#include <range/v3/view/reverse.hpp>
-#include <range/v3/view/slice.hpp>
-#include <range/v3/view/take.hpp>
-#include <string>
-#include <vector>
+#include "build_diamond_generate.hpp"
+using rh_ogorod::diamond_dojo::buildDiamond;
 
-// #include "unicode_utils_codecvt.hpp"
-#include "unicode_utils_icu.hpp"
+// #include <cpp-utils/scope_exit.hpp>
+// #include <range/v3/range/access.hpp>
+// #include <range/v3/range/conversion.hpp>
+// #include <range/v3/view/concat.hpp>
+// #include <range/v3/view/generate.hpp>
+// #include <range/v3/view/join.hpp>
+// #include <range/v3/view/reverse.hpp>
+// #include <range/v3/view/slice.hpp>
+// #include <range/v3/view/take.hpp>
+// #include <string>
+// #include <vector>
 
-// NOLINTNEXTLINE(misc-unused-using-decls)
-using std::operator""sv;
-using std::u32string;
-using std::vector;
+// // #include "unicode_utils_codecvt.hpp"
+// #include "unicode_utils_icu.hpp"
 
-using rh_ogorod::cpp_utils::ScopeExit;
+// // NOLINTNEXTLINE(misc-unused-using-decls)
+// using std::operator""sv;
+// using std::u32string;
+// using std::vector;
 
-using ranges::end;
-using ranges::to;
+// using rh_ogorod::cpp_utils::ScopeExit;
 
-namespace views = ranges::views;
+// using ranges::end;
+// using ranges::to;
 
-[[nodiscard]] auto buildDiamond(char32_t first, char32_t last, char32_t fill)
-    -> vector<u32string> {
-  using U32strings = decltype(buildDiamond(first, last, fill));
+// namespace views = ranges::views;
 
-  if (first > last) {
-    std::swap(first, last);
-  }
+// [[nodiscard]] auto buildDiamond(char32_t first, char32_t last, char32_t fill)
+//     -> vector<u32string> {
+//   using U32strings = decltype(buildDiamond(first, last, fill));
 
-  const auto firstCap = toUpper(first);
-  const auto lastCap = toUpper(last);
+//   if (first > last) {
+//     std::swap(first, last);
+//   }
 
-  const auto lastIndex = last - first;
-  const auto length = lastIndex + 1;
+//   const auto firstCap = toUpper(first);
+//   const auto lastCap = toUpper(last);
 
-  auto gen = views::generate([&, idx{char32_t{}}]() mutable {
-    ScopeExit guard{[&idx]() {
-      idx += 1;
-    }};
+//   const auto lastIndex = last - first;
+//   const auto length = lastIndex + 1;
 
-    if (idx == 0) {
-      const auto edge = u32string(lastIndex, fill);
-      const auto mid = u32string{firstCap};
-      return views::concat(edge, mid, edge) | to<u32string>();
-    }
+//   auto gen = views::generate([&, idx{char32_t{}}]() mutable {
+//     ScopeExit guard{[&idx]() {
+//       idx += 1;
+//     }};
 
-    if (idx == lastIndex) {
-      const u32string edge{lastCap};
-      const u32string mid(lastIndex * 2 - 1, fill);
-      return views::concat(edge, mid, edge) | to<u32string>();
-    }
+//     if (idx == 0) {
+//       const auto edge = u32string(lastIndex, fill);
+//       const auto mid = u32string{firstCap};
+//       return views::concat(edge, mid, edge) | to<u32string>();
+//     }
 
-    const std::array slices{
-        u32string(lastIndex - idx, fill),
-        u32string{firstCap + idx},
-        u32string(idx - 1, fill)};
+//     if (idx == lastIndex) {
+//       const u32string edge{lastCap};
+//       const u32string mid(lastIndex * 2 - 1, fill);
+//       return views::concat(edge, mid, edge) | to<u32string>();
+//     }
 
-    const auto left = slices | views::join;
-    const auto right = left | views::reverse;
-    const u32string mid{fill};
+//     const std::array slices{
+//         u32string(lastIndex - idx, fill),
+//         u32string{firstCap + idx},
+//         u32string(idx - 1, fill)};
 
-    return views::concat(left, mid, right) | to<u32string>();
-  });
+//     const auto left = slices | views::join;
+//     const auto right = left | views::reverse;
+//     const u32string mid{fill};
 
-  const auto top = gen | views::take(length) | to<U32strings>();
-  const auto bottom = top | views::slice(0, end - 1) | views::reverse;
-  return views::concat(top, bottom) | to<U32strings>();
-}
+//     return views::concat(left, mid, right) | to<u32string>();
+//   });
+
+//   const auto top = gen | views::take(length) | to<U32strings>();
+//   const auto bottom = top | views::slice(0, end - 1) | views::reverse;
+//   return views::concat(top, bottom) | to<U32strings>();
+// }
 
 auto main(int /*argc*/, char* /*argv*/[]) -> int {
   auto diamond = buildDiamond(U'а', U'ж', U'.');

@@ -5,14 +5,7 @@
 // https://github.com/ericniebler/range-v3/blob/master/test/action/transform.cpp
 
 #include <cpp-utils/scope_exit.hpp>
-#include <range/v3/range/access.hpp>
-#include <range/v3/range/conversion.hpp>
-#include <range/v3/view/concat.hpp>
-#include <range/v3/view/generate.hpp>
-#include <range/v3/view/join.hpp>
-#include <range/v3/view/reverse.hpp>
-#include <range/v3/view/slice.hpp>
-#include <range/v3/view/take.hpp>
+#include <range/v3/view.hpp>
 #include <string>
 #include <vector>
 
@@ -34,9 +27,9 @@ using ranges::to;
 namespace views = ranges::views;
 
 [[nodiscard]] inline auto
-buildDiamondGenerate(char32_t first, char32_t last, char32_t fill)
+buildDiamond(char32_t first, char32_t last, char32_t fill)
     -> vector<u32string> {
-  using U32strings = decltype(buildDiamondGenerate(first, last, fill));
+  using U32strings = decltype(buildDiamond(first, last, fill));
 
   if (first > last) {
     std::swap(first, last);

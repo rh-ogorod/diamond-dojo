@@ -5,6 +5,7 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_binary(
   name = "diamond",
   srcs = [
+    "src/build_diamond_generate.hpp",
     "src/main.cpp",
     "src/unicode_utils_codecvt.hpp",
     "src/unicode_utils_icu.hpp",
