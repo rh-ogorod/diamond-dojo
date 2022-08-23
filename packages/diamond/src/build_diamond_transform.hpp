@@ -1,8 +1,6 @@
 // Hey Emacs, this is -*- coding: utf-8 -*-
-#ifndef __diamond_build_diamond_generate_hpp__
-#define __diamond_build_diamond_generate_hpp__
-
-// https://github.com/ericniebler/range-v3/blob/master/test/action/transform.cpp
+#ifndef __diamond_build_diamond_transform_hpp__
+#define __diamond_build_diamond_transform_hpp__
 
 #include <range/v3/view.hpp>
 #include <string>
@@ -10,7 +8,6 @@
 
 namespace rh_ogorod::diamond_dojo {
 
-// NOLINTNEXTLINE(misc-unused-using-decls)
 using std::u32string;
 using std::vector;
 
@@ -64,4 +61,4 @@ buildDiamond(char32_t first, char32_t last, char32_t fill)
 
 } // namespace rh_ogorod::diamond_dojo
 
-#endif // __diamond_build_diamond_generate_hpp__
+#endif // __diamond_build_diamond_transform_hpp__
