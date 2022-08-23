@@ -28,13 +28,13 @@ namespace views = ranges::views;
   const auto firstCap = toUpper(first);
   const auto lastCap = toUpper(last);
 
-  const std::size_t lastIndex = last - first;
-  const std::size_t length = lastIndex + 1;
+  const char32_t lastIndex = last - first;
+  const char32_t length = lastIndex + 1;
 
   U32strings top;
   top.reserve(length);
 
-  for (auto i = 0; i < length; ++i) {
+  for (char32_t i = 0; i < length; ++i) {
     if (i == 0) {
       const auto empty = u32string(lastIndex, fill);
       const auto mid = u32string{firstCap};
