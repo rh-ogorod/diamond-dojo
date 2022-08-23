@@ -1,6 +1,6 @@
 # Hey Emacs, this is -*- coding: utf-8; mode: bazel -*-
 
-load("@rules_compdb//:defs.bzl", "compilation_database")
+load("@rules-compdb//:defs.bzl", "compilation_database")
 
 compilation_database(
   name = "compdb",

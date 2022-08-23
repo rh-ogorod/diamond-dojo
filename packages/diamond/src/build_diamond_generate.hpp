@@ -1,4 +1,6 @@
 // Hey Emacs, this is -*- coding: utf-8 -*-
+#ifndef __diamond_build_diamond_generate_hpp__
+#define __diamond_build_diamond_generate_hpp__
 
 // https://github.com/ericniebler/range-v3/blob/master/test/action/transform.cpp
 
@@ -17,6 +19,8 @@
 // #include "unicode_utils_codecvt.hpp"
 #include "unicode_utils_icu.hpp"
 
+namespace rh_ogorod::diamond_dojo {
+
 // NOLINTNEXTLINE(misc-unused-using-decls)
 using std::operator""sv;
 using std::u32string;
@@ -29,9 +33,10 @@ using ranges::to;
 
 namespace views = ranges::views;
 
-[[nodiscard]] auto buildDiamond(char32_t first, char32_t last, char32_t fill)
+[[nodiscard]] inline auto
+buildDiamondGenerate(char32_t first, char32_t last, char32_t fill)
     -> vector<u32string> {
-  using U32strings = decltype(buildDiamond(first, last, fill));
+  using U32strings = decltype(buildDiamondGenerate(first, last, fill));
 
   if (first > last) {
     std::swap(first, last);
@@ -77,12 +82,6 @@ namespace views = ranges::views;
   return views::concat(top, bottom) | to<U32strings>();
 }
 
-auto main(int /*argc*/, char* /*argv*/[]) -> int {
-  auto diamond = buildDiamond(U'а', U'ж', U'.');
+} // namespace rh_ogorod::diamond_dojo
 
-  for (const auto& line : diamond) {
-    std::cout << line << "\n";
-  }
-
-  return 0;
-}
+#endif // __diamond_build_diamond_generate_hpp__

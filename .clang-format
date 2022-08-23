@@ -30,10 +30,12 @@ AllowShortLambdasOnASingleLine: Empty
 SeparateDefinitionBlocks: Always
 AlignTrailingComments: false
 # AlignOperands: DontAlign
+# IndentRequires: true
 
 # PenaltyBreakAssignment: 90
 # PenaltyBreakFirstLessLess: 0
 PenaltyBreakBeforeFirstCallParameter: 0
+PenaltyReturnTypeOnItsOwnLine: 190
 
 BreakBeforeBraces: Custom
 BraceWrapping:

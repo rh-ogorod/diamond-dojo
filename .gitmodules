@@ -10,3 +10,7 @@
 	path = external/range-v3
 	url = git@github.com:ericniebler/range-v3.git
 	branch = master
+[submodule "@rh-ogorod/cpp-utils"]
+	path = external/cpp-utils
+	url = git@github.com:rh-ogorod/cpp-utils.git
+	branch = main

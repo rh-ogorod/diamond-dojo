@@ -3,8 +3,13 @@
 workspace(name = "diamond-dojo")
 
 local_repository(
-  name = "rules_compdb",
+  name = "rules-compdb",
   path = "external/bazelbuild-rules-compdb",
+)
+
+local_repository(
+  name = "cpp-utils",
+  path = "external/cpp-utils",
 )
 
 local_repository(

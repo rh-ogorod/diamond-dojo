@@ -5,13 +5,14 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_binary(
   name = "diamond",
   srcs = [
-    "src/unicode_utils_icu.hpp",
-    "src/unicode_utils_codecvt.hpp",
     "src/main.cpp",
+    "src/unicode_utils_codecvt.hpp",
+    "src/unicode_utils_icu.hpp",
   ],
   deps = [
-    "@system//:system",
+    "@cpp-utils//:cpp-utils",
     "@range-v3//:range-v3",
+    "@system//:system",
   ],
   # linkopts = ['-Wl,-rpath,"$$ORIGIN/../lib"'],
   visibility = ["//visibility:public"],
