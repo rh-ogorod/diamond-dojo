@@ -1,5 +1,7 @@
 // Hey Emacs, this is -*- coding: utf-8 -*-
 
+// https://github.com/ericniebler/range-v3/blob/master/test/action/transform.cpp
+
 #include <range/v3/range/access.hpp>
 #include <range/v3/range/conversion.hpp>
 #include <range/v3/view/concat.hpp>
@@ -37,7 +39,9 @@ namespace views = ranges::views;
   const auto lastIndex = last - first;
   const auto length = lastIndex + 1;
 
-  auto gen = views::generate([&, idx = 0]() mutable {
+  auto gen = views::generate([&, idx = -1]() mutable {
+    idx += 1;
+
     if (idx == 0) {
       const auto edge = u32string(lastIndex, fill);
       const auto mid = u32string{firstCap};
