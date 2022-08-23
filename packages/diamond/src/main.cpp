@@ -36,21 +36,25 @@ namespace views = ranges::views;
 
   for (auto i = 0; i < length; ++i) {
     if (i == 0) {
-      u32string empty(lastIndex, fill);
-      top.push_back(empty += firstCap + empty);
+      const auto empty = u32string(lastIndex, fill);
+      const auto mid = u32string{firstCap};
+      top.push_back(views::concat(empty, mid, empty) | to<u32string>());
       continue;
     }
 
     if (i == lastIndex) {
-      top.push_back(lastCap + u32string(lastIndex * 2 - 1, fill) + lastCap);
+      const u32string edge{lastCap};
+      const u32string mid(lastIndex * 2 - 1, fill);
+      top.push_back(views::concat(edge, mid, edge) | to<u32string>());
       continue;
     }
 
-    auto left = u32string(lastIndex - i, fill) + u32string{firstCap + i} +
-                u32string(i - 1, fill);
-    const auto right = views::reverse(left) | to<u32string>();
+    const auto left = u32string(lastIndex - i, fill) + u32string{firstCap + i} +
+                      u32string(i - 1, fill);
+    const auto right = views::reverse(left);
+    const u32string mid{fill};
 
-    top.push_back(left += fill + right);
+    top.push_back(views::concat(left, mid, right) | to<u32string>());
   }
 
   const auto bottom = top | views::slice(0, end - 1) | views::reverse;
