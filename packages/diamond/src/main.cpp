@@ -1,9 +1,13 @@
 // Hey Emacs, this is -*- coding: utf-8 -*-
 
+#include <range/v3/range/access.hpp>
+#include <range/v3/range/conversion.hpp>
 #include <range/v3/view/concat.hpp>
+#include <range/v3/view/generate.hpp>
 #include <range/v3/view/join.hpp>
 #include <range/v3/view/reverse.hpp>
 #include <range/v3/view/slice.hpp>
+#include <range/v3/view/take.hpp>
 #include <string>
 #include <vector>
 
@@ -33,36 +37,32 @@ namespace views = ranges::views;
   const auto lastIndex = last - first;
   const auto length = lastIndex + 1;
 
-  U32strings top;
-  top.reserve(length);
-
-  for (char32_t i = 0; i < length; ++i) {
-    if (i == 0) {
+  auto gen = views::generate([&, idx = 0]() mutable {
+    if (idx == 0) {
       const auto edge = u32string(lastIndex, fill);
       const auto mid = u32string{firstCap};
-      top.push_back(views::concat(edge, mid, edge) | to<u32string>());
-      continue;
+      return views::concat(edge, mid, edge) | to<u32string>();
     }
 
-    if (i == lastIndex) {
+    if (idx == lastIndex) {
       const u32string edge{lastCap};
       const u32string mid(lastIndex * 2 - 1, fill);
-      top.push_back(views::concat(edge, mid, edge) | to<u32string>());
-      continue;
+      return views::concat(edge, mid, edge) | to<u32string>();
     }
 
     const std::array slices{
-        u32string(lastIndex - i, fill),
-        u32string{firstCap + i},
-        u32string(i - 1, fill)};
+        u32string(lastIndex - idx, fill),
+        u32string{firstCap + idx},
+        u32string(idx - 1, fill)};
 
     const auto left = slices | views::join;
     const auto right = left | views::reverse;
     const u32string mid{fill};
 
-    top.push_back(views::concat(left, mid, right) | to<u32string>());
-  }
+    return views::concat(left, mid, right) | to<u32string>();
+  });
 
+  const auto top = gen | views::take(length) | to<U32strings>();
   const auto bottom = top | views::slice(0, end - 1) | views::reverse;
   return views::concat(top, bottom) | to<U32strings>();
 }
