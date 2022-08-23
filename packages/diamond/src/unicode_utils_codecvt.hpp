@@ -3,7 +3,6 @@
 #define __diamond_unicode_utils_codecvt_hpp__
 
 #include <unicode/uchar.h>
-#include <unicode/unistr.h>
 
 #include <codecvt>
 #include <iostream>
