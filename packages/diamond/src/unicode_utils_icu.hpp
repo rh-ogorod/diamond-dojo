@@ -14,8 +14,6 @@
 #include <range/v3/view/transform.hpp>
 #include <string_view>
 
-// using std::operator""sv;
-
 inline auto toUpper(char32_t value) -> char32_t {
   return u_toupper(static_cast<UChar32>(value));
 }

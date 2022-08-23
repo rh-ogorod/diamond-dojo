@@ -1,12 +1,14 @@
 // Hey Emacs, this is -*- coding: utf-8 -*-
 
 #include <range/v3/view/concat.hpp>
+#include <range/v3/view/join.hpp>
 #include <range/v3/view/reverse.hpp>
 #include <range/v3/view/slice.hpp>
 #include <string>
 #include <vector>
 
-#include "unicode_utils_codecvt.hpp"
+// #include "unicode_utils_codecvt.hpp"
+#include "unicode_utils_icu.hpp"
 
 // NOLINTNEXTLINE(misc-unused-using-decls)
 using std::operator""sv;
@@ -28,17 +30,17 @@ namespace views = ranges::views;
   const auto firstCap = toUpper(first);
   const auto lastCap = toUpper(last);
 
-  const char32_t lastIndex = last - first;
-  const char32_t length = lastIndex + 1;
+  const auto lastIndex = last - first;
+  const auto length = lastIndex + 1;
 
   U32strings top;
   top.reserve(length);
 
   for (char32_t i = 0; i < length; ++i) {
     if (i == 0) {
-      const auto empty = u32string(lastIndex, fill);
+      const auto edge = u32string(lastIndex, fill);
       const auto mid = u32string{firstCap};
-      top.push_back(views::concat(empty, mid, empty) | to<u32string>());
+      top.push_back(views::concat(edge, mid, edge) | to<u32string>());
       continue;
     }
 
@@ -49,9 +51,13 @@ namespace views = ranges::views;
       continue;
     }
 
-    const auto left = u32string(lastIndex - i, fill) + u32string{firstCap + i} +
-                      u32string(i - 1, fill);
-    const auto right = views::reverse(left);
+    const std::array slices{
+        u32string(lastIndex - i, fill),
+        u32string{firstCap + i},
+        u32string(i - 1, fill)};
+
+    const auto left = slices | views::join;
+    const auto right = left | views::reverse;
     const u32string mid{fill};
 
     top.push_back(views::concat(left, mid, right) | to<u32string>());
