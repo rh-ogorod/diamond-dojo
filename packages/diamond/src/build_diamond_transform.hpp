@@ -4,17 +4,15 @@
 
 // https://github.com/ericniebler/range-v3/blob/master/test/action/transform.cpp
 
-#include <cpp-utils/scope_exit.hpp>
 #include <range/v3/view.hpp>
 #include <string>
 #include <vector>
 
 namespace rh_ogorod::diamond_dojo {
 
+// NOLINTNEXTLINE(misc-unused-using-decls)
 using std::u32string;
 using std::vector;
-
-using rh_ogorod::cpp_utils::ScopeExit;
 
 using ranges::end;
 using ranges::to;
@@ -33,11 +31,8 @@ buildDiamond(char32_t first, char32_t last, char32_t fill)
   const auto lastIndex = last - first;
   const auto length = lastIndex + 1;
 
-  auto gen = views::generate([&, idx{char32_t{}}]() mutable {
-    ScopeExit guard{[&idx]() {
-      idx += 1;
-    }};
-
+  auto rng = views::iota(0) | views::take(length);
+  auto gen = views::transform(rng, [&](char32_t idx) {
     if (idx == 0) {
       const auto edge = u32string(lastIndex, fill);
       const auto mid = u32string{first};
