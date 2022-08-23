@@ -1,62 +1,68 @@
 // Hey Emacs, this is -*- coding: utf-8 -*-
 
-#include <unicode/uchar.h>
-#include <unicode/unistr.h>
-#include <unicode/ustream.h>
+#include <range/v3/view/concat.hpp>
+#include <range/v3/view/reverse.hpp>
+#include <range/v3/view/slice.hpp>
+#include <string>
+#include <vector>
 
-#include <cassert>
-#include <iostream>
-#include <limits>
-#include <locale>
-#include <range/v3/to_container.hpp>
-#include <range/v3/view/transform.hpp>
-#include <string_view>
-
-using icu_66::UnicodeString;
+#include "unicode_utils_codecvt.hpp"
 
 // NOLINTNEXTLINE(misc-unused-using-decls)
 using std::operator""sv;
+using std::u32string;
+using std::vector;
 
-inline auto toUpper(char32_t value) -> char32_t {
-  return u_toupper(static_cast<UChar32>(value));
-}
+using ranges::end;
+using ranges::to;
+namespace views = ranges::views;
 
-auto toUpper(const std::u32string& value) -> std::u32string {
-  return value | ranges::views::transform([](auto letter) {
-           return u_toupper(letter);
-         }) |
-         ranges::to<std::u32string>();
-};
+[[nodiscard]] auto buildDiamond(char32_t first, char32_t last, char32_t fill)
+    -> vector<u32string> {
+  using U32strings = decltype(buildDiamond(first, last, fill));
 
-inline auto operator<<(std::ostream& stream, const std::u32string_view& value)
-  -> std::ostream& {
-  using FromUTF32Arg2 = int32_t;
-  const auto valueSize = value.size();
+  if (first > last) {
+    std::swap(first, last);
+  }
 
-  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
-  assert(valueSize <= std::numeric_limits<FromUTF32Arg2>::max());
+  const auto firstCap = toUpper(first);
+  const auto lastCap = toUpper(last);
 
-  stream << UnicodeString::fromUTF32(
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    reinterpret_cast<const UChar32*>(value.data()),
-    static_cast<FromUTF32Arg2>(valueSize));
+  const std::size_t lastIndex = last - first;
+  const std::size_t length = lastIndex + 1;
 
-  return stream;
-}
+  U32strings top;
+  top.reserve(length);
 
-inline auto operator<<(std::ostream& stream, const char32_t value)
-  -> std::ostream& {
-  stream << UnicodeString{static_cast<UChar32>(value)};
-  return stream;
+  for (auto i = 0; i < length; ++i) {
+    if (i == 0) {
+      u32string empty(lastIndex, fill);
+      top.push_back(empty += firstCap + empty);
+      continue;
+    }
+
+    if (i == lastIndex) {
+      top.push_back(lastCap + u32string(lastIndex * 2 - 1, fill) + lastCap);
+      continue;
+    }
+
+    auto left = u32string(lastIndex - i, fill) + u32string{firstCap + i} +
+                u32string(i - 1, fill);
+    const auto right = views::reverse(left) | to<u32string>();
+
+    top.push_back(left += fill + right);
+  }
+
+  const auto bottom = top | views::slice(0, end - 1) | views::reverse;
+  return views::concat(top, bottom) | to<U32strings>();
 }
 
 auto main(int /*argc*/, char* /*argv*/[]) -> int {
-  const char32_t firstIn{U'а'};
-  const char32_t lastIn{U'д'};
+  auto diamond = buildDiamond(U'а', U'ж', U'.');
 
-  std::cout << "First letter: " << toUpper(firstIn) << "\n"
-            << "Last letter: " << toUpper(lastIn) << "\n"
-            << std::endl;
+  for (const auto& line : diamond) {
+    std::cout << line << "\n";
+  }
 
   return 0;
 }
