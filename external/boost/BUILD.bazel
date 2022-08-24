@@ -1,7 +1,9 @@
 # Hey Emacs, this is -*- coding: utf-8; mode: bazel -*-
 
-version = "1.80.0"
-versionDash = "1_80"
+version = (1, 80, 0)
+
+versionDots = "{}.{}.{}".format(version[0], version[1], version[2])
+versionDash = "{}_{}".format(version[0], version[1])
 
 staticLibs = (
   # "libboost_atomic-gcc11-mt-s-x64-1_80.a",
