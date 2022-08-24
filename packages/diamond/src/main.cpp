@@ -2,11 +2,11 @@
 
 // https://github.com/ericniebler/range-v3/blob/master/test/action/transform.cpp
 
-#include "build_diamond_generate.hpp"
-using rh_ogorod::diamond_dojo::buildDiamond;
-
-// #include "build_diamond_transform.hpp"
+// #include "build_diamond_generate.hpp"
 // using rh_ogorod::diamond_dojo::buildDiamond;
+
+#include "build_diamond_transform.hpp"
+using rh_ogorod::diamond_dojo::buildDiamond;
 
 // #include "unicode_utils_codecvt.hpp"
 #include "unicode_utils_icu.hpp"

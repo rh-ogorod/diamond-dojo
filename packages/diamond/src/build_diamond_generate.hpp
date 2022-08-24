@@ -32,20 +32,20 @@ buildDiamond(char32_t first, char32_t last, char32_t fill)
   const auto length = lastIndex + 1;
 
   auto gen = views::generate([&, idx{char32_t{}}]() mutable {
-    ScopeExit guard{[&idx]() {
+    const ScopeExit guard{[&idx]() {
       idx += 1;
     }};
 
     if (idx == 0) {
-      const auto edge = u32string(lastIndex, fill);
+      const auto side = u32string(lastIndex, fill);
       const auto mid = u32string{first};
-      return views::concat(edge, mid, edge) | to<u32string>();
+      return views::concat(side, mid, side) | to<u32string>();
     }
 
     if (idx == lastIndex) {
-      const u32string edge{last};
+      const u32string side{last};
       const u32string mid(lastIndex * 2 - 1, fill);
-      return views::concat(edge, mid, edge) | to<u32string>();
+      return views::concat(side, mid, side) | to<u32string>();
     }
 
     const std::array slices{
