@@ -1,6 +1,7 @@
 # Hey Emacs, this is -*- coding: utf-8; mode: bazel -*-
 
-load("@rules_foreign_cc//foreign_cc:defs.bzl", "boost_build")
+version = "1.80.0"
+versionDash = "1_80"
 
 staticLibs = (
   # "libboost_atomic-gcc11-mt-s-x64-1_80.a",
@@ -75,7 +76,7 @@ staticLibs = (
   # "libboost_stacktrace_noop-gcc11-mt-s-x64-1_80.a",
   # "libboost_stacktrace_noop-gcc11-mt-x64-1_80.a",
   # "libboost_system-gcc11-mt-s-x64-1_80.a",
-  "libboost_system-gcc11-mt-x64-1_80.a",
+  # "libboost_system-gcc11-mt-x64-1_80.a",
   # "libboost_test_exec_monitor-gcc11-mt-s-x64-1_80.a",
   # "libboost_test_exec_monitor-gcc11-mt-x64-1_80.a",
   # "libboost_thread-gcc11-mt-s-x64-1_80.a",
@@ -184,7 +185,8 @@ sharedLibs = (
 genrule(
   name = "build",
   outs = ["dist/lib/" + lib for lib in staticLibs] +
-    ["dist/lib/" + lib for lib in sharedLibs],
+    ["dist/lib/" + lib for lib in sharedLibs] +
+    ["dist/include/boost-{}/boost/version.hpp".format(versionDash)],
   cmd = " ".join([
     "./$(execpath .rh-subproject/build.sh);",
     'EXECPATH=$$(dirname "$(execpath .rh-subproject/build.sh)");',
@@ -204,34 +206,3 @@ cc_library(
   data = [":build"],
   visibility = ["//visibility:public"],
 )
-
-# filegroup(
-#   name = "all_srcs",
-#   srcs = glob(["package/**"]),
-#   visibility = ["//visibility:public"],
-# )
-
-# boost_build(
-#   name = "boost",
-#   lib_source = ":all_srcs",
-#   out_include_dir = "include/boost-1_80",
-#   # out_static_libs = staticLibs
-#   out_shared_libs = sharedLibs,
-#   # bootstrap_options = [
-#   #   "--with-python=python3",
-#   # ],
-#   user_options = [
-#     "headers",
-#     "-d+2",
-#     "-q",
-#     "-j$NPROC_EXT",
-#     # "--build-type=complete",
-#     "--layout=versioned",
-#     # "toolset=gcc-11~c++17",
-#     "toolset=gcc-11~c++20",
-#     "variant=release",
-#     "threading=multi",
-#     "link=static,shared",
-#   ],
-#   visibility = ["//visibility:public"],
-# )

@@ -17,6 +17,11 @@ local_repository(
   path = "external/range-v3",
 )
 
+local_repository(
+  name = "boost",
+  path = "external/boost",
+)
+
 new_local_repository(
   name = "system",
   path = "/usr/lib/x86_64-linux-gnu",
