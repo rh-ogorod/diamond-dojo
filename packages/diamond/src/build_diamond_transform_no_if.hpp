@@ -25,36 +25,22 @@ buildDiamond(char32_t first, char32_t last, char32_t fill)
     std::swap(first, last);
   }
 
-  const auto lastIndex = last - first;
-  const auto length = lastIndex + 1;
+  const auto length = last - first + 1;
 
-  auto indices = views::iota(0) | views::take(length);
-  auto lines = views::transform(indices, [&](char32_t idx) {
-    if (idx == 0) {
-      const auto side = u32string(lastIndex, fill);
-      const std::array slices{side, u32string{first}, side};
-      return slices | views::join | to<u32string>();
-    }
-
-    if (idx == lastIndex) {
-      const u32string side{last};
-      const std::array slices{side, u32string(lastIndex * 2 - 1, fill), side};
-      return slices | views::join | to<u32string>();
-    }
-
+  const auto indices = views::iota(0) | views::take(length);
+  const auto lines = views::transform(indices, [&](char32_t idx) {
     const std::array slices{
-        u32string(lastIndex - idx, fill),
+        u32string(length - idx - 1, fill),
         u32string{first + idx},
-        u32string(idx - 1, fill)};
+        u32string(idx, fill)};
 
     const auto left = slices | views::join;
-    const auto right = left | views::reverse;
-    const u32string mid{fill};
+    auto right = left | views::reverse | views::drop(1);
 
-    return views::concat(left, mid, right) | to<u32string>();
+    return views::concat(left, right) | to<u32string>();
   });
 
-  const auto top = lines | views::take(length) | to<U32strings>();
+  const auto top = lines | views::take(length);
   const auto bottom = top | views::slice(0, end - 1) | views::reverse;
   return views::concat(top, bottom) | to<U32strings>();
 }

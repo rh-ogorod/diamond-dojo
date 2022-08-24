@@ -7,6 +7,7 @@ cc_binary(
   srcs = [
     "src/build_diamond_generate.hpp",
     "src/build_diamond_transform.hpp",
+    "src/build_diamond_transform_no_if.hpp",
     "src/main.cpp",
     "src/unicode_utils_codecvt.hpp",
     "src/unicode_utils_icu.hpp",

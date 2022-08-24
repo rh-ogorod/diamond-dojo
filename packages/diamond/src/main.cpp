@@ -5,7 +5,10 @@
 // #include "build_diamond_generate.hpp"
 // using rh_ogorod::diamond_dojo::buildDiamond;
 
-#include "build_diamond_transform.hpp"
+// #include "build_diamond_transform.hpp"
+// using rh_ogorod::diamond_dojo::buildDiamond;
+
+#include "build_diamond_transform_no_if.hpp"
 using rh_ogorod::diamond_dojo::buildDiamond;
 
 // #include "unicode_utils_codecvt.hpp"
