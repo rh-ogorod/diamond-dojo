@@ -14,3 +14,7 @@
 	path = external/cpp-utils
 	url = git@github.com:rh-ogorod/cpp-utils.git
 	branch = main
+[submodule "@rh-ogorod/boost"]
+	path = external/boost/package
+	url = git@github.com:rh-ogorod/boost.git
+	branch = master

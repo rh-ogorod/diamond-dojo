@@ -2,8 +2,6 @@
 #ifndef __diamond_build_diamond_generate_hpp__
 #define __diamond_build_diamond_generate_hpp__
 
-// https://github.com/ericniebler/range-v3/blob/master/test/action/transform.cpp
-
 #include <cpp-utils/scope_exit.hpp>
 #include <range/v3/view.hpp>
 #include <string>
