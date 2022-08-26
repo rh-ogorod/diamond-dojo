@@ -1,5 +1,7 @@
 # Hey Emacs, this is -*- coding: utf-8; mode: bazel -*-
 
+load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
+
 version = (1, 80, 0)
 
 versionDots = "{}.{}.{}".format(version[0], version[1], version[2])
@@ -184,10 +186,33 @@ sharedLibs = (
   # "libboost_wserialization-gcc11-mt-x64-1_80.so.1.80.0",
 )
 
+filegroup(
+  name = "all_srcs",
+  srcs = glob([".rh-subproject/*", "package/**"]),
+  visibility = ["//visibility:public"],
+)
+
+run_binary(
+  name = "build",
+  mnemonic = "BuildBoost",
+  # srcs = glob([".rh-subproject/*", "package/**"]),
+  srcs = [":all_srcs"],
+  outs =
+    ["dist/lib/" + lib for lib in staticLibs] +
+    ["dist/lib/" + lib for lib in sharedLibs],
+  out_dirs = ["package", "dist", "build"],
+  tool = ".rh-subproject/bazel-build.sh",
+  args = ["$(RULEDIR)"],
+  visibility = ["//visibility:public"],
+)
+
 cc_library(
   name = "boost",
-  hdrs = glob(["package/boost/**"]),
-  strip_include_prefix = "package/",
+  # hdrs = glob(["package/boost/**"]),
+  # hdrs = ["package/boost/type_traits.hpp"],
+  # strip_include_prefix = "package/",
+  hdrs = ["dist/include/boost/type_traits.hpp"],
+  strip_include_prefix = "dist/include/",
   srcs =
     ["dist/lib/" + lib for lib in staticLibs] +
     ["dist/lib/" + lib for lib in sharedLibs],

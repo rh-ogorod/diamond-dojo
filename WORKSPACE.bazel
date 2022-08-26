@@ -2,6 +2,29 @@
 
 workspace(name = "diamond-dojo")
 
+## /b/; flatbuffers
+## /b/{
+
+local_repository(
+  name = "aspect_bazel_lib",
+  path = "external/aspect-bazel-lib",
+)
+
+# load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# http_archive(
+#     name = "aspect_bazel_lib",
+#     sha256 = "779885424473657cc50c8391b627321e920f23aa57141445015d00d2a0def8ff",
+#     strip_prefix = "bazel-lib-1.11.0",
+#     url = "https://github.com/aspect-build/bazel-lib/archive/refs/tags/v1.11.0.tar.gz",
+# )
+
+load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies")
+
+aspect_bazel_lib_dependencies()
+
+## /b/}
+
 local_repository(
   name = "rules-compdb",
   path = "external/bazelbuild-rules-compdb",

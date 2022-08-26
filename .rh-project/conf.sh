@@ -32,6 +32,7 @@ readonly NRAM_BAZ='HOST_RAM*.9'
 BAZEL_BUILD_CMD=(build)
 # see https://github.com/bazelbuild/bazel/issues/4008 for --host_action_env
 # BAZEL_BUILD_CMD+=("--host_action_env=NPROC_EXT=${NPROC_EXT}")
+BAZEL_BUILD_CMD+=("--action_env=PATH=${PATH}")
 BAZEL_BUILD_CMD+=("--action_env=NPROC_EXT=${NPROC_EXT}")
 BAZEL_BUILD_CMD+=("--action_env=CC=${CC}")
 BAZEL_BUILD_CMD+=("--action_env=CXX=${CXX}")
@@ -42,6 +43,7 @@ BAZEL_BUILD_CMD+=(--subcommands)
 
 # BAZEL_RUN_CMD=('--host_jvm_args=-Xmx120g')
 BAZEL_RUN_CMD=(run)
+BAZEL_RUN_CMD+=("--action_env=PATH=${PATH}")
 BAZEL_RUN_CMD+=("--action_env=NPROC_EXT=${NPROC_EXT}")
 BAZEL_RUN_CMD+=("--action_env=CC=${CC}")
 BAZEL_RUN_CMD+=("--action_env=CXX=${CXX}")
@@ -52,7 +54,7 @@ BAZEL_RUN_CMD+=(--subcommands)
 
 BAZEL_DEBUG_CMD=()
 # BAZEL_DEBUG_CMD+=('--verbose_failures')
-# BAZEL_DEBUG_CMD+=('--sandbox_debug')
+BAZEL_DEBUG_CMD+=('--sandbox_debug')
 
 BAZEL_TERM_CMD=('--color=yes')
 BAZEL_TERM_CMD+=('--curses=yes')
