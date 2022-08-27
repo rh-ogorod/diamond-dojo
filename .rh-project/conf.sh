@@ -53,7 +53,7 @@ BAZEL_RUN_CMD+=(--experimental_local_memory_estimate)
 BAZEL_RUN_CMD+=(--subcommands)
 
 BAZEL_DEBUG_CMD=()
-# BAZEL_DEBUG_CMD+=('--verbose_failures')
+BAZEL_DEBUG_CMD+=('--verbose_failures')
 BAZEL_DEBUG_CMD+=('--sandbox_debug')
 
 BAZEL_TERM_CMD=('--color=yes')

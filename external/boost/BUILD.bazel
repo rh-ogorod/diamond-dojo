@@ -197,24 +197,28 @@ run_binary(
   mnemonic = "BuildBoost",
   # srcs = glob([".rh-subproject/*", "package/**"]),
   srcs = [":all_srcs"],
-  outs =
-    ["dist/lib/" + lib for lib in staticLibs] +
-    ["dist/lib/" + lib for lib in sharedLibs],
+  # outs =
+  #   ["dist/lib/" + lib for lib in staticLibs] +
+  #   ["dist/lib/" + lib for lib in sharedLibs],
   out_dirs = ["package", "dist", "build"],
+  # out_dirs = ["dist/include/boost-1_80"],
   tool = ".rh-subproject/bazel-build.sh",
-  args = ["$(RULEDIR)"],
+  env = {"RULEDIR": "$(RULEDIR)"},
   visibility = ["//visibility:public"],
 )
 
 cc_library(
   name = "boost",
-  # hdrs = glob(["package/boost/**"]),
-  # hdrs = ["package/boost/type_traits.hpp"],
-  # strip_include_prefix = "package/",
-  hdrs = ["dist/include/boost/type_traits.hpp"],
-  strip_include_prefix = "dist/include/",
-  srcs =
-    ["dist/lib/" + lib for lib in staticLibs] +
-    ["dist/lib/" + lib for lib in sharedLibs],
+  # hdrs = glob(["boost/dist/include/boost-1_80/**"]),
+  hdrs = ["external/boost/dist/include/boost-1_80/boost/type_traits.hpp"],
+  strip_include_prefix = "external/boost/dist/include/boost-1_80/",
+  # strip_include_prefix = "boost/package/",
+  # hdrs = ["dist/include/boost-1_80/boost/type_traits.hpp"],
+  # strip_include_prefix = "dist/include/boost-1_80/",
+  # includes = ["external/boost/dist/include/boost-1_80"],
+    # ["dist/lib/" + lib for lib in staticLibs] +
+    # ["dist/lib/" + lib for lib in sharedLibs],
+  data = [":build"],
+  # srcs = [":build"],
   visibility = ["//visibility:public"],
 )
