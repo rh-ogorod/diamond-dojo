@@ -21,24 +21,20 @@ buildDiamond(char32_t first, char32_t last, char32_t fill)
 
   const auto length = last - first + 1;
 
-  const auto lines = views::transform(views::iota(0), [&](char32_t idx) {
+  auto lines = views::transform(views::iota(0), [&](char32_t idx) {
     const std::array slices{
         std::u32string(length - idx - 1, fill),
         std::u32string{first + idx},
         std::u32string(idx, fill)};
 
-    const auto left = slices | views::join;
-
-    // const auto left = std::u32string(length - idx - 1, fill) +
-    //                   std::u32string{first + idx} + std::u32string(idx,
-    //                   fill);
+    auto left = slices | views::join;
 
     auto right = left | views::reverse | views::drop(1);
 
     return views::concat(left, right) | ranges::to<std::u32string>();
   });
 
-  const auto top = lines | views::take(length);
+  auto top = lines | views::take(length);
   auto bottom = top | views::reverse | views::drop(1);
   return views::concat(top, bottom) | ranges::to<U32strings>();
 }

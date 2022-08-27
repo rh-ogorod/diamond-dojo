@@ -47,15 +47,15 @@ buildDiamond(char32_t first, char32_t last, char32_t fill)
         u32string{first + idx},
         u32string(idx - 1, fill)};
 
-    const auto left = slices | views::join;
-    const auto right = left | views::reverse;
+    auto left = slices | views::join;
+    auto right = left | views::reverse;
     const u32string mid{fill};
 
     return views::concat(left, mid, right) | to<u32string>();
   });
 
-  const auto top = lines | views::take(length) | to<U32strings>();
-  const auto bottom = top | views::slice(0, end - 1) | views::reverse;
+  auto top = lines | views::take(length) | to<U32strings>();
+  auto bottom = top | views::slice(0, end - 1) | views::reverse;
   return views::concat(top, bottom) | to<U32strings>();
 }
 
