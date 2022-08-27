@@ -15,7 +15,7 @@ readonly BLD_PATH="${PRJ_ROOT_PATH}/build"
 readonly SRC_PATH="${PRJ_ROOT_PATH}/package"
 readonly DST_PATH="${PRJ_ROOT_PATH}/dist"
 
-# BOOST_BUILD_CMD=(headers)
+BOOST_BUILD_CMD=(headers)
 # BOOST_BUILD_CMD+=(stage)
 BOOST_BUILD_CMD+=(install)
 BOOST_BUILD_CMD+=(-d+2 -q)

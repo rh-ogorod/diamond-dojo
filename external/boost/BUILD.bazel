@@ -184,26 +184,32 @@ sharedLibs = (
   # "libboost_wserialization-gcc11-mt-x64-1_80.so.1.80.0",
 )
 
+
 genrule(
   name = "build",
-  outs = ["dist/lib/" + lib for lib in staticLibs] +
+  outs =
+    ["dist/lib/" + lib for lib in staticLibs] +
     ["dist/lib/" + lib for lib in sharedLibs] +
-    ["dist/include/boost-{}/boost/version.hpp".format(versionDash)],
+    ["package"],
   cmd = " ".join([
     "./$(execpath .rh-subproject/build.sh);",
     'EXECPATH=$$(dirname "$(execpath .rh-subproject/build.sh)");',
     'readonly EXECPATH=$$(dirname "$$EXECPATH");',
-    'cp -fr "$$EXECPATH/dist" "$(RULEDIR)";',
+    'cp -r "$$EXECPATH/package" "$(RULEDIR)";',
+    'cp -r "$$EXECPATH/dist" "$(RULEDIR)";',
   ]),
   exec_tools = [".rh-subproject/build.sh"],
   tags = ["no-sandbox", "exclusive"],
+  # local=True,
   visibility = ["//visibility:public"],
 )
 
 cc_library(
   name = "boost",
   hdrs = glob(["package/boost/**"]),
-  srcs = ["dist/lib/" + lib for lib in staticLibs] +
+  includes = ["package"],
+  srcs =
+    ["dist/lib/" + lib for lib in staticLibs] +
     ["dist/lib/" + lib for lib in sharedLibs],
   data = [":build"],
   visibility = ["//visibility:public"],

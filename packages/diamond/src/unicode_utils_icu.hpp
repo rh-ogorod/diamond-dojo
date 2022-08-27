@@ -6,6 +6,7 @@
 #include <unicode/unistr.h>
 #include <unicode/ustream.h>
 
+#include <boost/type_traits.hpp>
 #include <cassert>
 #include <iostream>
 #include <limits>
@@ -27,7 +28,9 @@ inline auto toUpper(const std::u32string& value) -> std::u32string {
 
 inline auto operator<<(std::ostream& stream, const std::u32string_view& value)
     -> std::ostream& {
-  using FromUTF32Arg2 = int32_t;
+  // using FromUTF32Arg2 = int32_t;
+  using FromUTF32Arg2 = boost::function_traits<
+      decltype(icu_66::UnicodeString::fromUTF32)>::arg2_type;
   const auto valueSize = value.size();
 
   // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
