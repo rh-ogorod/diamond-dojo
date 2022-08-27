@@ -13,6 +13,10 @@ PRJ_ROOT_PATH="$(cd "${PRJ_ROOT_PATH}" && pwd)"
 cd "${PRJ_ROOT_PATH}" && echo cd "${PWD}"
 
 echo
+CMD=(./external/boost/.rh-subproject/clean.sh)
+echo + "${CMD[@]}" && "${CMD[@]}"
+
+echo
 CMD=(bazel clean --expunge)
 echo + "${CMD[@]}" && "${CMD[@]}"
 

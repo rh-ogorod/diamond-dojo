@@ -17,6 +17,6 @@ CMD=(bazel)
 CMD+=("${BAZEL_BUILD_CMD[@]}")
 CMD+=("${BAZEL_DEBUG_CMD[@]}")
 CMD+=("${BAZEL_TERM_CMD[@]}")
-# CMD+=(@boost//:boost)
-CMD+=(@boost//:build)
+CMD+=(@boost//:boost)
+# CMD+=(@boost//:build)
 echo + "${CMD[@]}" && "${CMD[@]}"
