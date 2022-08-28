@@ -15,10 +15,6 @@ CMD=(./git-populate-submodules.sh)
 echo + "${CMD[@]}" && "${CMD[@]}"
 
 echo
-CMD=(yarn)
-echo + "${CMD[@]}" && "${CMD[@]}"
-
-echo
 CMD=(./build-all.sh)
 echo + "${CMD[@]}" && "${CMD[@]}"
 

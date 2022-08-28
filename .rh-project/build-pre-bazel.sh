@@ -10,13 +10,8 @@ readonly SDPATH="$(cd -P "${SDPATH}" && pwd)"
 # shellcheck source=./conf.sh
 source "${SDPATH}/conf.sh"
 
-cd "${INDEX_PATH}"; echo cd "${PWD}"
+cd "${PRJ_ROOT_PATH}/external/boost/.rh-subproject"; echo + cd "${PWD}"
 
 echo
-CMD=(bazel)
-CMD+=("${BAZEL_BUILD_CMD[@]}")
-CMD+=("${BAZEL_DEBUG_CMD[@]}")
-CMD+=("${BAZEL_TERM_CMD[@]}")
-CMD+=(@boost//:boost)
-# CMD+=(@boost//:build)
+CMD=(./build.sh)
 echo + "${CMD[@]}" && "${CMD[@]}"

@@ -18,3 +18,7 @@
 	path = external/boost/package
 	url = git@github.com:rh-ogorod/boost.git
 	branch = master
+[submodule "@tee3/commands_to_compilation_database"]
+	path = external/commands_to_compilation_database
+	url = git@github.com:tee3/commands_to_compilation_database.git
+	branch = master

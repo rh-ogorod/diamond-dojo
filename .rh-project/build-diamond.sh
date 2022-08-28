@@ -10,7 +10,7 @@ readonly SDPATH="$(cd -P "${SDPATH}" && pwd)"
 # shellcheck source=./conf.sh
 source "${SDPATH}/conf.sh"
 
-cd "${INDEX_PATH}"; echo cd "${PWD}"
+cd "${PRJ_ROOT_PATH}"; echo + cd "${PWD}"
 
 echo
 CMD=(bazel)

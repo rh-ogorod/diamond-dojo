@@ -23,7 +23,6 @@ export CXX=g++-11
 PRJ_ROOT_PATH="${SDPATH}/.."
 readonly PRJ_ROOT_PATH="$(cd "${PRJ_ROOT_PATH}" && pwd)"
 
-readonly INDEX_PATH="${PRJ_ROOT_PATH}"
 readonly NRAM_BAZ='HOST_RAM*.9'
 
 # for Bazel memory usage
