@@ -26,7 +26,3 @@
 	path = external/aspect-bazel-lib
 	url = https://github.com/aspect-build/bazel-lib.git
 	branch = main
-[submodule "@tee3/commands_to_compilation_database"]
-	path = external/commands_to_compilation_database
-	url = git@github.com:tee3/commands_to_compilation_database.git
-	branch = master
