@@ -1,6 +1,7 @@
 # Hey Emacs, this is -*- coding: utf-8; mode: bazel -*-
 
 load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
+load("@rules_cc//cc:defs.bzl", "cc_library")
 
 version = (1, 80, 0)
 
@@ -200,8 +201,8 @@ run_binary(
   # outs =
   #   ["dist/lib/" + lib for lib in staticLibs] +
   #   ["dist/lib/" + lib for lib in sharedLibs],
-  out_dirs = ["package", "dist", "build"],
-  # out_dirs = ["dist/include/boost-1_80"],
+  # out_dirs = ["package", "dist", "build"],
+  out_dirs = ["dist"],
   tool = ".rh-subproject/bazel-build.sh",
   env = {"RULEDIR": "$(RULEDIR)"},
   visibility = ["//visibility:public"],
@@ -210,15 +211,18 @@ run_binary(
 cc_library(
   name = "boost",
   # hdrs = glob(["boost/dist/include/boost-1_80/**"]),
-  hdrs = ["external/boost/dist/include/boost-1_80/boost/type_traits.hpp"],
-  strip_include_prefix = "external/boost/dist/include/boost-1_80/",
+  # hdrs = ["external/boost/dist/include/boost-1_80/boost/type_traits.hpp"],
+  # strip_include_prefix = "external/boost/dist/include/boost-1_80/",
   # strip_include_prefix = "boost/package/",
   # hdrs = ["dist/include/boost-1_80/boost/type_traits.hpp"],
   # strip_include_prefix = "dist/include/boost-1_80/",
   # includes = ["external/boost/dist/include/boost-1_80"],
+  hdrs = glob(["dist/include/boost-1_80/**"]),
+  # includes = ["dist/include/boost-1_80"],
     # ["dist/lib/" + lib for lib in staticLibs] +
     # ["dist/lib/" + lib for lib in sharedLibs],
-  data = [":build"],
-  # srcs = [":build"],
+  # srcs = glob(["dist/include/boost-1_80/**"]),
+  srcs = [":build"],
+  # data = [":build"],
   visibility = ["//visibility:public"],
 )
