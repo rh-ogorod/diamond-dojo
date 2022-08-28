@@ -211,18 +211,18 @@ run_binary(
 cc_library(
   name = "boost",
   # hdrs = glob(["boost/dist/include/boost-1_80/**"]),
-  # hdrs = ["external/boost/dist/include/boost-1_80/boost/type_traits.hpp"],
+  hdrs = ["dist/include/boost-1_80/boost/type_traits.hpp"],
   # strip_include_prefix = "external/boost/dist/include/boost-1_80/",
   # strip_include_prefix = "boost/package/",
   # hdrs = ["dist/include/boost-1_80/boost/type_traits.hpp"],
   # strip_include_prefix = "dist/include/boost-1_80/",
   # includes = ["external/boost/dist/include/boost-1_80"],
-  hdrs = glob(["dist/include/boost-1_80/**"]),
+  # hdrs = glob(["dist/include/boost-1_80/**"]),
   # includes = ["dist/include/boost-1_80"],
     # ["dist/lib/" + lib for lib in staticLibs] +
     # ["dist/lib/" + lib for lib in sharedLibs],
   # srcs = glob(["dist/include/boost-1_80/**"]),
-  srcs = [":build"],
-  # data = [":build"],
+  # srcs = [":build"],
+  data = [":build"],
   visibility = ["//visibility:public"],
 )
