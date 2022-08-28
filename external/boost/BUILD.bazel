@@ -190,7 +190,7 @@ genrule(
   outs =
     ["dist/lib/" + lib for lib in staticLibs] +
     ["dist/lib/" + lib for lib in sharedLibs] +
-    # ["dist/include/boost-{}/boost/version.hpp".format(versionDash)] +
+    ["dist/include/boost-{}/boost/version.hpp".format(versionDash)] +
     ["package"],
   cmd = " ".join([
     "./$(execpath .rh-subproject/build.sh);",
@@ -206,12 +206,15 @@ genrule(
 
 cc_library(
   name = "boost",
-  hdrs = glob(["package/boost/**"]),
+  hdrs = glob(["package/boost/**/*.hpp"]),
   # hdrs = ["package/boost/boost/version.hpp"],
   strip_include_prefix = "package/",
   srcs =
     ["dist/lib/" + lib for lib in staticLibs] +
-    ["dist/lib/" + lib for lib in sharedLibs],
+    ["dist/lib/" + lib for lib in sharedLibs] +
+    glob(["package/boost/**/*.hpp"]),
+    # ["dist/include/boost-{}/boost/version.hpp".format(versionDash)],
+    # glob(["dist/include/boost-{}.format(versionDash)/**"]),
   data = [":build"],
   visibility = ["//visibility:public"],
 )
