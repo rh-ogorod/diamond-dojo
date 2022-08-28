@@ -13,7 +13,7 @@ readonly EXECPATH="$(cd "${SDPATH}/.." && pwd)"
 source "${SDPATH}/conf.sh"
 
 if [[ -z "${RULEDIR:-}" ]]; then
-  echo \$RULEDIR env var should be set by Bazel
+  echo RULEDIR env var should be set by Bazel
   exit 1
 fi
 

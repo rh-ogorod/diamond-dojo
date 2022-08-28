@@ -201,8 +201,8 @@ run_binary(
   # outs =
   #   ["dist/lib/" + lib for lib in staticLibs] +
   #   ["dist/lib/" + lib for lib in sharedLibs],
-  # out_dirs = ["package", "dist", "build"],
-  out_dirs = ["dist"],
+  out_dirs = ["package", "dist", "build"],
+  # out_dirs = ["dist"],
   tool = ".rh-subproject/bazel-build.sh",
   env = {"RULEDIR": "$(RULEDIR)"},
   visibility = ["//visibility:public"],
