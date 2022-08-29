@@ -3,12 +3,11 @@
 set -eu
 set -o pipefail
 
-SPATH="$(dirname "${BASH_SOURCE[0]}")"
-if [[ ! -d "${SPATH}" ]]; then SPATH="${PWD}"; fi
-readonly SPATH="$(cd "${SPATH}" && pwd)"
+SDPATH="$(dirname "${BASH_SOURCE[0]}")"
+if [[ ! -d "${SDPATH}" ]]; then SDPATH="${PWD}"; fi
+readonly SDPATH="$(cd "${SDPATH}" && pwd)"
 
-PRJ_ROOT_PATH="${SPATH}/.."
-readonly PRJ_ROOT_PATH="$(cd "${PRJ_ROOT_PATH}" && pwd)"
+cd "${SDPATH}"; echo + cd "${PWD}"
 
 # Stollen from here:
 # https://stackoverflow.com/questions/1777854/how-can-i-specify-a-branch-tag-when-adding-a-git-submodule

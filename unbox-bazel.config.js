@@ -10,6 +10,10 @@ const config = {
       predicate: RegExp('^bazel-out/.+?/bin/external/range-v3(/?.*)'),
       replacement: 'external/range-v3$1',
     },
+    {
+      predicate: RegExp('^bazel-out/.+?/bin/external/boost$'),
+      replacement: 'external/boost/package',
+    },
   ],
 };
 

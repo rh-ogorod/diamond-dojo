@@ -12,20 +12,20 @@ source "${SDPATH}/conf.sh"
 
 readonly BAZEL_WORKSPACE_PATH="${PRJ_ROOT_PATH}"
 
-cd "${SDPATH}"; echo + cd "${PWD}"
-
-echo
-CMD=(./build-pre-bazel.sh); echo + "${CMD[@]}" && "${CMD[@]}"
-
-echo
-CMD=(./build-all.sh); echo + "${CMD[@]}" && "${CMD[@]}"
-
-echo
-CMD=(yarn); echo + "${CMD[@]}" && "${CMD[@]}"
-
 # https://stackoverflow.com/questions/40260242/how-to-set-c-standard-version-when-build-with-bazel
 export CC=gcc-11
 export CXX=g++-11
+
+cd "${SDPATH}"; echo + cd "${PWD}"
+
+echo
+CMD=(yarn)
+echo + "${CMD[@]}" && "${CMD[@]}"
+
+echo
+CMD=(./build-all.sh)
+echo + "${CMD[@]}" && "${CMD[@]}"
+
 
 cd "${BAZEL_WORKSPACE_PATH}"; echo + cd "${PWD}"
 

@@ -14,9 +14,9 @@ cd "${SDPATH}"; echo cd "${PWD}"
 CMD=(./git-populate-submodules.sh)
 echo + "${CMD[@]}" && "${CMD[@]}"
 
-echo
-CMD=(./build-all.sh)
-echo + "${CMD[@]}" && "${CMD[@]}"
+# echo
+# CMD=(./build-all.sh)
+# echo + "${CMD[@]}" && "${CMD[@]}"
 
 echo
 CMD=(./generate-compdb.sh)
