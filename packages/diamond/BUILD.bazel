@@ -18,7 +18,7 @@ cc_binary(
     "@boost//:boost",
     "@system//:system",
   ],
-  # data = ["@boost//:build"],
+  data = ["@boost//:build"],
   # linkopts = ['-Wl,-rpath,"$$ORIGIN/../lib"'],
   visibility = ["//visibility:public"],
 )
