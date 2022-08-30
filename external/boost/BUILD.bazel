@@ -10,18 +10,24 @@ filegroup(
 
 run_binary(
   name = "build",
-  mnemonic = "BuildBoost",
+  mnemonic = "BoostBuild",
   srcs = [":all_srcs"],
-  outs = [
-    "dist/lib/libboost_system-gcc11-mt-x64-1_80.a",
-    "dist/lib/libboost_system-gcc11-mt-x64-1_80.so.1.80.0",
-    "dist/lib/libboost_system-gcc11-mt-x64-1_80.so",
-  ],
-  out_dirs = ["package", "dist/include", "build"],
-  # out_dirs = ["package", "dist/include", "dist/lib", "build"],
+  out_dirs = ["package", "dist", "build"],
   tool = ".rh-subproject/bazel-build.sh",
   env = {"RULEDIR": "$(RULEDIR)"},
   execution_requirements = { "exclusive": "1" },
+  visibility = ["//visibility:public"],
+)
+
+run_binary(
+  name = "build_copy_lib",
+  mnemonic = "BoostBuildCopyLibs",
+  srcs = [":build"],
+  outs = ["lib_copy/libboost_system-gcc11-mt-x64-1_80.a"],
+  # outs = glob(["lib_copy/*.a"]),
+  # out_dirs = ["lib_copy"],
+  tool = ".rh-subproject/bazel-build-copy-lib.sh",
+  env = {"RULEDIR": "$(RULEDIR)"},
   visibility = ["//visibility:public"],
 )
 
@@ -32,14 +38,8 @@ cc_library(
   hdrs = glob(["package/boost/**"]),
   strip_include_prefix = "package/",
   srcs = [
-    "dist/lib/libboost_system-gcc11-mt-x64-1_80.a",
-    "dist/lib/libboost_system-gcc11-mt-x64-1_80.so.1.80.0",
-    "dist/lib/libboost_system-gcc11-mt-x64-1_80.so",
+    ":build_copy_lib",
   ],
-  # srcs =
-  #   glob(["dist/lib/*.a"]),
-  #   # glob(["dist/lib/*.so"]) +
-  #   # glob(["dist/lib/*.so.*"]),
   data = [":build"],
   visibility = ["//visibility:public"],
 )
