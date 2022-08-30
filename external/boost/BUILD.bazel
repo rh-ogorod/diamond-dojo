@@ -18,7 +18,6 @@ run_binary(
     "dist/lib/libboost_system-gcc11-mt-x64-1_80.so",
   ],
   out_dirs = ["package", "dist/include", "build"],
-  # out_dirs = ["package", "dist/include", "dist/lib", "build"],
   tool = ".rh-subproject/bazel-build.sh",
   env = {"RULEDIR": "$(RULEDIR)"},
   execution_requirements = { "exclusive": "1" },
